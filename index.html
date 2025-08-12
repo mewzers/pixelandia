@@ -14,103 +14,171 @@
 
   html, body {
     height: 100%;
-    background: linear-gradient(135deg, #0d0f1a, #120d2b);
-    color: #e0f7ff;
     font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
+    transition: background 0.5s, color 0.5s;
   }
 
-  body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  /* MODE SOMBRE (par défaut ou si prefer dark) */
+  @media (prefers-color-scheme: dark) {
+    html, body {
+      background: linear-gradient(135deg, #0d0f1a, #120d2b);
+      color: #e0f7ff;
+    }
+    footer {
+      background: rgba(20, 10, 40, 0.85);
+      color: #8888ff;
+      text-shadow: 0 0 8px #4444ff88;
+    }
+    main {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+    }
+    h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #00fff7;
+      position: relative;
+      user-select: none;
+      text-shadow:
+        0 0 5px #00fff7,
+        0 0 10px #00fff7,
+        0 0 20px #00fff7,
+        0 0 40px #00fff7,
+        0 0 80px #00fff7;
+      animation: glitch-dark 2s infinite;
+      padding: 0 1rem;
+    }
+    @keyframes glitch-dark {
+      0% {
+        text-shadow:
+          2px 0 #00fff7,
+          -2px 0 #d100ff,
+          0 0 10px #00fff7;
+        transform: translate(0, 0);
+      }
+      20% {
+        text-shadow:
+          2px 2px #00fff7,
+          -2px -2px #d100ff,
+          0 0 20px #00fff7;
+        transform: translate(-1px, 1px);
+      }
+      40% {
+        text-shadow:
+          2px -2px #00fff7,
+          -2px 2px #d100ff,
+          0 0 30px #00fff7;
+        transform: translate(1px, -1px);
+      }
+      60% {
+        text-shadow:
+          2px 0 #00fff7,
+          -2px 0 #d100ff,
+          0 0 10px #00fff7;
+        transform: translate(0, 0);
+      }
+      80% {
+        text-shadow:
+          2px 2px #00fff7,
+          -2px -2px #d100ff,
+          0 0 20px #00fff7;
+        transform: translate(-1px, 1px);
+      }
+      100% {
+        text-shadow:
+          2px -2px #00fff7,
+          -2px 2px #d100ff,
+          0 0 30px #00fff7;
+        transform: translate(1px, -1px);
+      }
+    }
   }
 
-  main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* centré verticalement */
-    text-align: center;
-    padding: 1rem;
-  }
-
-  h1 {
-    font-size: 4rem;
-    font-weight: 900;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #00fff7;
-    position: relative;
-    user-select: none;
-    text-shadow:
-      0 0 5px #00fff7,
-      0 0 10px #00fff7,
-      0 0 20px #00fff7,
-      0 0 40px #00fff7,
-      0 0 80px #00fff7;
-    animation: glitch 2s infinite;
-    padding: 0 1rem;
-  }
-
-  /* Effet glitch cyan/purple */
-  @keyframes glitch {
-    0% {
-      text-shadow:
-        2px 0 #00fff7,
-        -2px 0 #d100ff,
-        0 0 10px #00fff7;
-      transform: translate(0, 0);
+  /* MODE CLAIR */
+  @media (prefers-color-scheme: light) {
+    html, body {
+      background: linear-gradient(135deg, #e0f7ff, #b0e0ff);
+      color: #0a1f44;
     }
-    20% {
-      text-shadow:
-        2px 2px #00fff7,
-        -2px -2px #d100ff,
-        0 0 20px #00fff7;
-      transform: translate(-1px, 1px);
+    footer {
+      background: rgba(200, 230, 255, 0.85);
+      color: #1a3d7c;
+      text-shadow: none;
     }
-    40% {
-      text-shadow:
-        2px -2px #00fff7,
-        -2px 2px #d100ff,
-        0 0 30px #00fff7;
-      transform: translate(1px, -1px);
+    main {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
     }
-    60% {
+    h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #004e92;
+      position: relative;
+      user-select: none;
       text-shadow:
-        2px 0 #00fff7,
-        -2px 0 #d100ff,
-        0 0 10px #00fff7;
-      transform: translate(0, 0);
+        0 0 5px #4a90e2,
+        0 0 10px #4a90e2,
+        0 0 20px #4a90e2;
+      animation: glitch-light 2s infinite;
+      padding: 0 1rem;
     }
-    80% {
-      text-shadow:
-        2px 2px #00fff7,
-        -2px -2px #d100ff,
-        0 0 20px #00fff7;
-      transform: translate(-1px, 1px);
+    @keyframes glitch-light {
+      0% {
+        text-shadow:
+          2px 0 #4a90e2,
+          -2px 0 #50e3c2,
+          0 0 10px #4a90e2;
+        transform: translate(0, 0);
+      }
+      20% {
+        text-shadow:
+          2px 2px #4a90e2,
+          -2px -2px #50e3c2,
+          0 0 20px #4a90e2;
+        transform: translate(-1px, 1px);
+      }
+      40% {
+        text-shadow:
+          2px -2px #4a90e2,
+          -2px 2px #50e3c2,
+          0 0 30px #4a90e2;
+        transform: translate(1px, -1px);
+      }
+      60% {
+        text-shadow:
+          2px 0 #4a90e2,
+          -2px 0 #50e3c2,
+          0 0 10px #4a90e2;
+        transform: translate(0, 0);
+      }
+      80% {
+        text-shadow:
+          2px 2px #4a90e2,
+          -2px -2px #50e3c2,
+          0 0 20px #4a90e2;
+        transform: translate(-1px, 1px);
+      }
+      100% {
+        text-shadow:
+          2px -2px #4a90e2,
+          -2px 2px #50e3c2,
+          0 0 30px #4a90e2;
+        transform: translate(1px, -1px);
+      }
     }
-    100% {
-      text-shadow:
-        2px -2px #00fff7,
-        -2px 2px #d100ff,
-        0 0 30px #00fff7;
-      transform: translate(1px, -1px);
-    }
-  }
-
-  footer {
-    height: 40px;
-    background: rgba(20, 10, 40, 0.85);
-    color: #8888ff;
-    font-size: 0.9rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-shadow: 0 0 8px #4444ff88;
   }
 
   /* Responsive */
@@ -119,6 +187,27 @@
       font-size: 2.8rem;
       letter-spacing: 0.1em;
     }
+  }
+
+  /* Layout */
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  footer {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    transition: background 0.5s, color 0.5s;
+  }
+  main {
+    flex: 1;
   }
 </style>
 </head>
