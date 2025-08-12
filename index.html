@@ -5,57 +5,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Bienvenue sur Pixelandia</title>
 <style>
+  /* Reset */
+  * {
+    box-sizing: border-box;
+  }
   html, body {
     margin: 0; padding: 0;
-    height: 100vh;
+    height: 100dvh; /* viewport height dynamique pour mobiles modernes */
     overflow: hidden;
-    background: #0a0a14;
-    color: #a0d8ff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  body {
+    background: linear-gradient(135deg, #0a0a14 0%, #1a1a34 100%);
+    color: #66d9ff;
+    font-family: 'Courier New', Courier, monospace;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+
+    /* safe-area pour encoches */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
-  .box {
-    max-width: 450px;
-    width: 90%;
-    max-height: 90vh;
-    background: #121224;
-    border-radius: 12px;
-    padding: 30px 20px;
-    box-shadow: 0 0 15px #00aaff88;
-    overflow: auto; /* si contenu dépasse (rare ici), scroll interne */
+  .container {
+    max-width: 480px;
+    width: 95vw;
+    max-height: 90dvh;
+    background: rgba(20, 20, 40, 0.85);
+    border-radius: 20px;
+    box-shadow:
+      0 0 10px #66d9ff88,
+      0 0 20px #7744ff88,
+      inset 0 0 40px #112244aa;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
   }
   h1 {
-    font-size: 2.4rem;
-    margin-bottom: 15px;
-    color: #00c8ff;
+    font-size: 3rem;
+    margin: 0 0 20px 0;
+    color: #77ccff;
+    text-shadow: 0 0 8px #66d9ff;
+    letter-spacing: 0.1em;
   }
   p {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    margin-bottom: 25px;
-    color: #c0e8ff;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #a0e0ffcc;
+    text-shadow: 0 0 5px #5588cc88;
   }
   footer {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #555a8b;
+    text-shadow: 0 0 4px #000a;
   }
+  /* Scrollbar discret */
+  .container::-webkit-scrollbar {
+    width: 6px;
+  }
+  .container::-webkit-scrollbar-thumb {
+    background: #66d9ff88;
+    border-radius: 3px;
+  }
+  /* Responsive petits écrans */
   @media (max-width: 400px) {
     h1 {
-      font-size: 1.8rem;
+      font-size: 2.4rem;
     }
     p {
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
   }
 </style>
 </head>
 <body>
-  <div class="box">
+  <div class="container" role="main">
     <h1>Bienvenue sur Pixelandia</h1>
     <p>Explorez l’univers numérique futuriste de Pixelandia. Votre portail vers l’innovation et la créativité en 2025.</p>
     <footer>© 2025 Pixelandia. Tous droits réservés.</footer>
