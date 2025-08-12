@@ -10,11 +10,13 @@
     margin: 0; padding: 0; box-sizing: border-box;
   }
 
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
   html, body {
     height: 100%;
-    background: #0f0f1a;
-    color: #eee;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0d0f1a, #120d2b);
+    color: #e0f7ff;
+    font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
   }
 
@@ -30,37 +32,92 @@
     justify-content: center;
     align-items: center; /* centré verticalement */
     text-align: center;
+    padding: 1rem;
   }
 
   h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 900;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    background: linear-gradient(90deg, #6a00ff, #00ffc3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #00fff7;
+    position: relative;
     user-select: none;
-    padding: 0 1rem; /* un peu de marge horizontale */
+    text-shadow:
+      0 0 5px #00fff7,
+      0 0 10px #00fff7,
+      0 0 20px #00fff7,
+      0 0 40px #00fff7,
+      0 0 80px #00fff7;
+    animation: glitch 2s infinite;
+    padding: 0 1rem;
+  }
+
+  /* Effet glitch cyan/purple */
+  @keyframes glitch {
+    0% {
+      text-shadow:
+        2px 0 #00fff7,
+        -2px 0 #d100ff,
+        0 0 10px #00fff7;
+      transform: translate(0, 0);
+    }
+    20% {
+      text-shadow:
+        2px 2px #00fff7,
+        -2px -2px #d100ff,
+        0 0 20px #00fff7;
+      transform: translate(-1px, 1px);
+    }
+    40% {
+      text-shadow:
+        2px -2px #00fff7,
+        -2px 2px #d100ff,
+        0 0 30px #00fff7;
+      transform: translate(1px, -1px);
+    }
+    60% {
+      text-shadow:
+        2px 0 #00fff7,
+        -2px 0 #d100ff,
+        0 0 10px #00fff7;
+      transform: translate(0, 0);
+    }
+    80% {
+      text-shadow:
+        2px 2px #00fff7,
+        -2px -2px #d100ff,
+        0 0 20px #00fff7;
+      transform: translate(-1px, 1px);
+    }
+    100% {
+      text-shadow:
+        2px -2px #00fff7,
+        -2px 2px #d100ff,
+        0 0 30px #00fff7;
+      transform: translate(1px, -1px);
+    }
   }
 
   footer {
     height: 40px;
-    background: rgba(20, 20, 30, 0.8);
-    color: #aaa;
+    background: rgba(20, 10, 40, 0.85);
+    color: #8888ff;
     font-size: 0.9rem;
     display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;
-    font-weight: 500;
-    letter-spacing: 0.05em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 8px #4444ff88;
   }
 
   /* Responsive */
   @media (max-width: 600px) {
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
+      letter-spacing: 0.1em;
     }
   }
 </style>
