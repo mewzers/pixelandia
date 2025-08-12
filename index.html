@@ -2,70 +2,110 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pixelandia - Bienvenue</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Bienvenue sur Pixelandia</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
-
-  /* Reset */
+  /* Reset et base */
   * {
-    margin: 0; padding: 0; box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: #0a0a14;
+    color: #e0e0ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    background: #0a0a1a;
-    color: #0ff;
-    font-family: 'Orbitron', monospace, sans-serif;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     min-height: 100vh;
+    text-align: center;
+    padding: 20px;
   }
 
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 1.5rem;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
+  .container {
+    max-width: 480px;
+    width: 90%;
+    background: linear-gradient(145deg, #1f1f35, #12121f);
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow:
+      0 0 20px #2e2e5f88,
+      inset 0 0 10px #5151aa88;
+    user-select: none;
   }
 
   h1 {
-    font-size: clamp(2.5rem, 8vw, 4rem);
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
+    font-weight: 900;
+    font-size: 2.8rem;
+    color: #8cfffb;
+    margin-bottom: 0.4em;
     text-shadow:
-      0 0 5px #0ff,
-      0 0 10px #0ff,
-      0 0 20px #00ffffcc,
-      0 0 30px #00ffffaa,
-      0 0 40px #00ffff88;
-    margin-bottom: 1rem;
+      0 0 5px #00f6ff,
+      0 0 15px #00f6ff99;
   }
 
-  p.lead {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    color: #66ffff;
-    margin-bottom: 3rem;
-    max-width: 600px;
+  p {
+    font-size: 1.1rem;
+    color: #a0a0c8;
+    margin-bottom: 2em;
+    line-height: 1.5;
   }
 
-  .btn-enter {
-    padding: clamp(0.75rem, 1.5vw, 1rem) clamp(2rem, 6vw, 3rem);
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    background: linear-gradient(90deg, #00ffff, #0066ff);
-    border: none;
-    border-radius: 50px;
-    color: #0a0a1a;
-    cursor: pointer;
-    box-shadow:
-      0 0 15px #00ffff,
-      0 0 30px #0066ff;
-    transition: background 0.3s ease, color 0.3s ease;
-    text-transform: uppercase;
+  footer {
+    font-size: 0.8rem;
+    color: #555a8b;
+  }
+
+  /* Animation légère futuriste */
+  @keyframes neonPulse {
+    0%, 100% {
+      text-shadow:
+        0 0 5px #00f6ff,
+        0 0 15px #00f6ff99,
+        0 0 20px #00f6ffcc;
+      color: #8cfffb;
+    }
+    50% {
+      text-shadow:
+        0 0 10px #00d4ff,
+        0 0 20px #00d4ffcc,
+        0 0 30px #00d4ffdd;
+      color: #6ee9f8;
+    }
+  }
+
+  h1 {
+    animation: neonPulse 3s ease-in-out infinite;
+  }
+
+  /* Responsive text */
+  @media (max-width: 400px) {
+    h1 {
+      font-size: 2.2rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+  }
+
+</style>
+</head>
+<body>
+  <div class="container" role="main">
+    <h1>Bienvenue sur Pixelandia</h1>
+    <p>Explorez l’univers numérique futuriste de Pixelandia. Votre portail vers l’innovation et la créativité en 2025.</p>
+    <footer>© 2025 Pixelandia. Tous droits réservés.</footer>
+  </div>
+</body>
+</html>    text-transform: uppercase;
     letter-spacing: 0.15em;
   }
   .btn-enter:hover {
