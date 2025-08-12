@@ -1,96 +1,98 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>Bienvenue sur Pixelandia</title>
-<style>
-  /* Reset */
-  * {
-    box-sizing: border-box;
-  }
-  html, body {
-    margin: 0; padding: 0;
-    height: 100dvh;
-    overflow: hidden;
-    background: linear-gradient(135deg, #0a0a14 0%, #1a1a34 100%);
-    color: #66d9ff;
-    font-family: 'Courier New', Courier, monospace;
-  }
-  body {
-    /* safe area pour mobiles */
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .container {
-    width: 100vw;
-    height: 100vh;
-    max-width: 100%;
-    max-height: 100%;
-    background: rgba(20, 20, 40, 0.85);
-    border-radius: 0; /* plus arrondi, full écran */
-    box-shadow:
-      0 0 20px #66d9ffcc,
-      inset 0 0 50px #112244dd;
-    padding: 40px 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    overflow: auto;
-  }
-  h1 {
-    font-size: 3.5rem;
-    margin: 0 0 20px 0;
-    color: #77ccff;
-    text-shadow: 0 0 10px #66d9ff;
-    letter-spacing: 0.1em;
-  }
-  p {
-    font-size: 1.4rem;
-    line-height: 1.6;
-    max-width: 600px;
-    color: #a0e0ffcc;
-    text-shadow: 0 0 6px #5588ccaa;
-    margin-bottom: 30px;
-  }
-  footer {
-    font-size: 1rem;
-    color: #555a8b;
-    text-shadow: 0 0 5px #000a;
-  }
-  /* Scrollbar discret */
-  .container::-webkit-scrollbar {
-    width: 8px;
-  }
-  .container::-webkit-scrollbar-thumb {
-    background: #66d9ff88;
-    border-radius: 4px;
-  }
-  /* Responsive petits écrans */
-  @media (max-width: 400px) {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Pixelandia - Bienvenue</title>
+  <style>
+    /* Reset & base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      height: 100dvh;
+      overflow-x: hidden; /* Supprime scroll horizontal */
+      overflow-y: hidden;
+      background: linear-gradient(135deg, #0a0a14 0%, #1a1a34 100%);
+      color: #66d9ff;
+      font-family: 'Courier New', Courier, monospace;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    /* Conteneur principal */
+    .container {
+      width: 100%;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: rgba(20, 20, 40, 0.85);
+      box-shadow:
+        0 0 20px #66d9ffcc,
+        inset 0 0 50px #112244dd;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: auto;
+    }
+    /* Titres */
     h1 {
-      font-size: 2.8rem;
+      font-size: 3.5rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #66d9ffbb;
     }
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 25px;
+      color: #99dfffcc;
+      letter-spacing: 0.1em;
+    }
+    /* Texte politique */
     p {
-      font-size: 1.1rem;
-      padding: 0 10px;
+      font-size: 1rem;
+      max-width: 600px;
+      line-height: 1.5;
+      color: #a0dfffcc;
+      margin-bottom: 1.2rem;
+      user-select: none;
     }
-  }
-</style>
+    /* Responsive - adapter les textes */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+        letter-spacing: 0.1em;
+      }
+      h2 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+      p {
+        font-size: 0.9rem;
+        max-width: 90vw;
+      }
+      .container {
+        padding: 20px 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <h1>Bienvenue sur Pixelandia</h1>
-    <p>Explorez l’univers numérique futuriste de Pixelandia. Votre portail vers l’innovation et la créativité en 2025.</p>
-    <footer>© 2025 Pixelandia. Tous droits réservés.</footer>
+  <div class="container">
+    <h1>Pixelandia</h1>
+    <h2>Bienvenue en 2025</h2>
+
+    <p><strong>Politique de confidentialité</strong> : Nous respectons votre vie privée et ne collectons aucune donnée personnelle sans votre consentement explicite.</p>
+    <p><strong>Conditions d'utilisation</strong> : En utilisant ce site, vous acceptez nos conditions générales, visant à garantir une expérience sécurisée et respectueuse pour tous.</p>
+    <p><strong>Cookies</strong> : Ce site utilise des cookies essentiels pour son fonctionnement. Aucun cookie de tracking ou publicité n’est installé.</p>
+    <p><strong>Contact</strong> : Pour toute question, merci de nous contacter via notre page GitHub ou par email.</p>
+
+    <small style="margin-top: 30px; color: #33669999;">© 2025 Pixelandia - Tous droits réservés</small>
   </div>
 </body>
 </html>
