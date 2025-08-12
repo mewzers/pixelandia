@@ -7,27 +7,27 @@
 <style>
   html, body {
     margin: 0; padding: 0;
+    height: 100vh;
+    overflow: hidden;
     background: #0a0a14;
     color: #a0d8ff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
-    height: 100%;
   }
   body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     text-align: center;
-    min-height: 100vh;
   }
   .box {
     max-width: 450px;
     width: 90%;
+    max-height: 90vh;
     background: #121224;
     border-radius: 12px;
     padding: 30px 20px;
     box-shadow: 0 0 15px #00aaff88;
+    overflow: auto; /* si contenu dépasse (rare ici), scroll interne */
   }
   h1 {
     font-size: 2.4rem;
