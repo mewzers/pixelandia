@@ -5,156 +5,60 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Bienvenue sur Pixelandia</title>
 <style>
-  /* Reset et base */
-  * {
-    box-sizing: border-box;
-  }
   html, body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+    margin: 0; padding: 0;
     background: #0a0a14;
-    color: #e0e0ff;
+    color: #a0d8ff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
     height: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
-
   body {
     display: flex;
-    align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    text-align: center;
+    align-items: center;
     padding: 20px;
+    text-align: center;
+    min-height: 100vh;
   }
-
-  .container {
-    max-width: 480px;
+  .box {
+    max-width: 450px;
     width: 90%;
-    background: linear-gradient(145deg, #1f1f35, #12121f);
-    border-radius: 16px;
-    padding: 30px 25px;
-    box-shadow:
-      0 0 20px #2e2e5f88,
-      inset 0 0 10px #5151aa88;
-    user-select: none;
+    background: #121224;
+    border-radius: 12px;
+    padding: 30px 20px;
+    box-shadow: 0 0 15px #00aaff88;
   }
-
   h1 {
-    font-weight: 900;
-    font-size: 2.8rem;
-    color: #8cfffb;
-    margin-bottom: 0.4em;
-    text-shadow:
-      0 0 5px #00f6ff,
-      0 0 15px #00f6ff99;
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+    color: #00c8ff;
   }
-
   p {
     font-size: 1.1rem;
-    color: #a0a0c8;
-    margin-bottom: 2em;
     line-height: 1.5;
+    margin-bottom: 25px;
+    color: #c0e8ff;
   }
-
   footer {
     font-size: 0.8rem;
     color: #555a8b;
   }
-
-  /* Animation légère futuriste */
-  @keyframes neonPulse {
-    0%, 100% {
-      text-shadow:
-        0 0 5px #00f6ff,
-        0 0 15px #00f6ff99,
-        0 0 20px #00f6ffcc;
-      color: #8cfffb;
-    }
-    50% {
-      text-shadow:
-        0 0 10px #00d4ff,
-        0 0 20px #00d4ffcc,
-        0 0 30px #00d4ffdd;
-      color: #6ee9f8;
-    }
-  }
-
-  h1 {
-    animation: neonPulse 3s ease-in-out infinite;
-  }
-
-  /* Responsive text */
   @media (max-width: 400px) {
     h1 {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
     }
     p {
       font-size: 1rem;
     }
   }
-
 </style>
 </head>
 <body>
-  <div class="container" role="main">
+  <div class="box">
     <h1>Bienvenue sur Pixelandia</h1>
     <p>Explorez l’univers numérique futuriste de Pixelandia. Votre portail vers l’innovation et la créativité en 2025.</p>
     <footer>© 2025 Pixelandia. Tous droits réservés.</footer>
   </div>
-</body>
-</html>    text-transform: uppercase;
-    letter-spacing: 0.15em;
-  }
-  .btn-enter:hover {
-    background: linear-gradient(90deg, #0066ff, #00ffff);
-    color: #fff;
-  }
-
-  footer {
-    background: #050517;
-    padding: 1.5rem 1.5rem;
-    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-    color: #33ccccaa;
-    text-align: center;
-    border-top: 1px solid #0066ff;
-    font-family: Arial, sans-serif;
-  }
-
-  footer a {
-    color: #00ffff;
-    text-decoration: none;
-    margin: 0 0.5rem;
-    transition: color 0.2s ease;
-  }
-  footer a:hover {
-    color: #66ffff;
-  }
-
-  .policy-text {
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-</style>
-</head>
-<body>
-  <main>
-    <h1>Pixelandia</h1>
-    <p class="lead">Bienvenue dans le futur du web.</p>
-    <button class="btn-enter" onclick="alert('Bienvenue sur Pixelandia!')">Entrer</button>
-  </main>
-
-  <footer>
-    <div class="policy-text">
-      <strong>Politiques 2025 :</strong><br/>
-      Ce site respecte la confidentialité de ses visiteurs et s'engage à ne pas collecter de données personnelles sans consentement explicite.<br/>
-      Nous utilisons des cookies strictement nécessaires pour assurer le bon fonctionnement du site.<br/>
-      En utilisant ce site, vous acceptez nos conditions d’utilisation et notre politique de confidentialité.<br/>
-      <a href="#">En savoir plus</a> | <a href="#">Politique de confidentialité</a> | <a href="#">Cookies</a>
-    </div>
-  </footer>
 </body>
 </html>
