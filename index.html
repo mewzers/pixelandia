@@ -11,72 +11,77 @@
   }
   html, body {
     margin: 0; padding: 0;
-    height: 100dvh; /* viewport height dynamique pour mobiles modernes */
+    height: 100dvh;
     overflow: hidden;
     background: linear-gradient(135deg, #0a0a14 0%, #1a1a34 100%);
     color: #66d9ff;
     font-family: 'Courier New', Courier, monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    /* safe-area pour encoches */
+  }
+  body {
+    /* safe area pour mobiles */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .container {
-    max-width: 480px;
-    width: 95vw;
-    max-height: 90dvh;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
     background: rgba(20, 20, 40, 0.85);
-    border-radius: 20px;
+    border-radius: 0; /* plus arrondi, full écran */
     box-shadow:
-      0 0 10px #66d9ff88,
-      0 0 20px #7744ff88,
-      inset 0 0 40px #112244aa;
+      0 0 20px #66d9ffcc,
+      inset 0 0 50px #112244dd;
     padding: 40px 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     overflow: auto;
   }
   h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin: 0 0 20px 0;
     color: #77ccff;
-    text-shadow: 0 0 8px #66d9ff;
+    text-shadow: 0 0 10px #66d9ff;
     letter-spacing: 0.1em;
   }
   p {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     line-height: 1.6;
-    margin-bottom: 30px;
+    max-width: 600px;
     color: #a0e0ffcc;
-    text-shadow: 0 0 5px #5588cc88;
+    text-shadow: 0 0 6px #5588ccaa;
+    margin-bottom: 30px;
   }
   footer {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #555a8b;
-    text-shadow: 0 0 4px #000a;
+    text-shadow: 0 0 5px #000a;
   }
   /* Scrollbar discret */
   .container::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
   .container::-webkit-scrollbar-thumb {
     background: #66d9ff88;
-    border-radius: 3px;
+    border-radius: 4px;
   }
   /* Responsive petits écrans */
   @media (max-width: 400px) {
     h1 {
-      font-size: 2.4rem;
+      font-size: 2.8rem;
     }
     p {
       font-size: 1.1rem;
+      padding: 0 10px;
     }
   }
 </style>
