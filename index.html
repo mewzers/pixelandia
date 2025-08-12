@@ -19,25 +19,10 @@
     transition: background 0.5s, color 0.5s;
   }
 
-  /* MODE SOMBRE (plus intense posterisation) */
+  /* MODE SOMBRE (par défaut ou si prefer dark) */
   @media (prefers-color-scheme: dark) {
     html, body {
-      background:
-        linear-gradient(135deg, #0d0f1a 0%, #120d2b 100%),
-        repeating-linear-gradient(
-          0deg,
-          rgba(0, 255, 255, 0.25),
-          rgba(0, 255, 255, 0.25) 8px,
-          rgba(0, 0, 255, 0.20) 8px,
-          rgba(0, 0, 255, 0.20) 16px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          rgba(0, 255, 255, 0.10),
-          rgba(0, 255, 255, 0.10) 6px,
-          rgba(0, 0, 255, 0.08) 6px,
-          rgba(0, 0, 255, 0.08) 12px
-        );
+      background: linear-gradient(135deg, #0d0f1a, #120d2b);
       color: #e0f7ff;
     }
     footer {
@@ -136,25 +121,10 @@
     }
   }
 
-  /* MODE CLAIR (plus intense posterisation) */
+  /* MODE CLAIR */
   @media (prefers-color-scheme: light) {
     html, body {
-      background:
-        linear-gradient(135deg, #e0f7ff 0%, #b0e0ff 100%),
-        repeating-linear-gradient(
-          0deg,
-          rgba(0, 119, 255, 0.45),
-          rgba(0, 119, 255, 0.45) 10px,
-          rgba(0, 191, 255, 0.35) 10px,
-          rgba(0, 191, 255, 0.35) 20px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          rgba(0, 119, 255, 0.20),
-          rgba(0, 119, 255, 0.20) 8px,
-          rgba(0, 191, 255, 0.15) 8px,
-          rgba(0, 191, 255, 0.15) 16px
-        );
+      background: linear-gradient(135deg, #e0f7ff, #b0e0ff);
       color: #0a1f44;
     }
     footer {
@@ -227,3 +197,69 @@
           0 0 30px #4a90e2;
         transform: translate(1px, -1px);
       }
+      60% {
+        text-shadow:
+          2px 0 #4a90e2,
+          -2px 0 #50e3c2,
+          0 0 10px #4a90e2;
+        transform: translate(0, 0);
+      }
+      80% {
+        text-shadow:
+          2px 2px #4a90e2,
+          -2px -2px #50e3c2,
+          0 0 20px #4a90e2;
+        transform: translate(-1px, 1px);
+      }
+      100% {
+        text-shadow:
+          2px -2px #4a90e2,
+          -2px 2px #50e3c2,
+          0 0 30px #4a90e2;
+        transform: translate(1px, -1px);
+      }
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2.8rem;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  /* Layout */
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    transition: background 0.5s, color 0.5s;
+  }
+
+  main {
+    flex: 1;
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <h1>Bienvenue sur Pixelandia</h1>
+</main>
+
+<footer>
+  © 2025 Pixelandia - Tous droits réservés
+</footer>
+
+</body>
+</html>
