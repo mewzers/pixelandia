@@ -19,29 +19,31 @@
       font-family: 'Courier New', Courier, monospace;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
+
     /* Conteneur principal */
     .container {
+      flex: 1;
       width: 100%;
-      height: 100vh;
-      max-width: 100%;
-      max-height: 100%;
       background: rgba(20, 20, 40, 0.85);
       box-shadow:
         0 0 20px #66d9ffcc,
         inset 0 0 50px #112244dd;
-      padding: 40px 30px;
+      padding: 60px 30px 30px 30px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       text-align: center;
       overflow: auto;
     }
-    /* Titres */
+
+    /* Titre centré un peu sous le haut */
     h1 {
+      margin: 0 0 20px 0;
       font-size: 3.5rem;
-      margin-bottom: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       text-shadow: 0 0 10px #66d9ffbb;
@@ -49,19 +51,23 @@
     h2 {
       font-size: 1.4rem;
       font-weight: 400;
-      margin-bottom: 25px;
+      margin: 0 0 50px 0;
       color: #99dfffcc;
       letter-spacing: 0.1em;
     }
-    /* Texte politique */
-    p {
-      font-size: 1rem;
-      max-width: 600px;
-      line-height: 1.5;
-      color: #a0dfffcc;
-      margin-bottom: 1.2rem;
+
+    /* Footer fixé en bas */
+    footer {
+      background: rgba(10, 10, 20, 0.9);
+      color: #5599ccaa;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 15px 10px;
+      box-shadow: inset 0 1px 3px #223355aa;
       user-select: none;
+      font-style: italic;
     }
+
     /* Responsive - adapter les textes */
     @media (max-width: 600px) {
       h1 {
@@ -70,14 +76,10 @@
       }
       h2 {
         font-size: 1rem;
-        margin-bottom: 15px;
-      }
-      p {
-        font-size: 0.9rem;
-        max-width: 90vw;
+        margin-bottom: 30px;
       }
       .container {
-        padding: 20px 15px;
+        padding: 50px 20px 20px 20px;
       }
     }
   </style>
@@ -86,13 +88,9 @@
   <div class="container">
     <h1>Pixelandia</h1>
     <h2>Bienvenue en 2025</h2>
-
-    <p><strong>Politique de confidentialité</strong> : Nous respectons votre vie privée et ne collectons aucune donnée personnelle sans votre consentement explicite.</p>
-    <p><strong>Conditions d'utilisation</strong> : En utilisant ce site, vous acceptez nos conditions générales, visant à garantir une expérience sécurisée et respectueuse pour tous.</p>
-    <p><strong>Cookies</strong> : Ce site utilise des cookies essentiels pour son fonctionnement. Aucun cookie de tracking ou publicité n’est installé.</p>
-    <p><strong>Contact</strong> : Pour toute question, merci de nous contacter via notre page GitHub ou par email.</p>
-
-    <small style="margin-top: 30px; color: #33669999;">© 2025 Pixelandia - Tous droits réservés</small>
   </div>
+  <footer>
+    © 2025 Pixelandia - Tous droits réservés
+  </footer>
 </body>
 </html>
