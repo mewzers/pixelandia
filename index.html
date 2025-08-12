@@ -48,17 +48,18 @@
     transition: background 0.5s, color 0.5s;
   }
 
-  /* Liseré néon bleu au-dessus du footer */
+  /* Liseré néon bleu au-dessus du footer - pleine largeur */
   footer::before {
     content: "";
     position: absolute;
     top: 0;
-    left: 5%;
-    right: 5%;
-    height: 3px;
+    left: 0;
+    right: 0;
+    height: 4px;
     background: linear-gradient(90deg, #00fff7, #0044ff, #00fff7);
     border-radius: 2px;
-    filter: drop-shadow(0 0 6px #00fff7);
+    filter: drop-shadow(0 0 8px #00fff7);
+    z-index: 10;
   }
 
   /* MODE SOMBRE */
@@ -68,10 +69,10 @@
         linear-gradient(135deg, #0d0f1a, #120d2b),
         repeating-linear-gradient(
           0deg,
-          rgba(0, 255, 255, 0.1),
-          rgba(0, 255, 255, 0.1) 6px,
-          rgba(0, 0, 255, 0.05) 6px,
-          rgba(0, 0, 255, 0.05) 12px
+          rgba(0, 255, 255, 0.15),
+          rgba(0, 255, 255, 0.15) 12px,
+          rgba(0, 0, 255, 0.10) 12px,
+          rgba(0, 0, 255, 0.10) 24px
         );
       color: #e0f7ff;
     }
@@ -99,10 +100,10 @@
         linear-gradient(135deg, #e0f7ff, #b0e0ff),
         repeating-linear-gradient(
           0deg,
-          rgba(0, 119, 255, 0.15),
-          rgba(0, 119, 255, 0.15) 8px,
-          rgba(0, 191, 255, 0.1) 8px,
-          rgba(0, 191, 255, 0.1) 16px
+          rgba(0, 119, 255, 0.25),
+          rgba(0, 119, 255, 0.25) 16px,
+          rgba(0, 191, 255, 0.15) 16px,
+          rgba(0, 191, 255, 0.15) 32px
         );
       color: #0a1f44;
     }
