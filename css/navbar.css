@@ -1,0 +1,60 @@
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  height: auto;
+  width: fit-content;
+  max-width: calc(100% - 40px);
+  background-color: rgba(200, 200, 200, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  transition: background-color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+  padding: 10px 20px;
+  margin: 20px auto 0;
+  box-shadow: 0 0 20px rgba(200, 200, 200, 0.3),
+              0 0 40px rgba(200, 200, 200, 0.2),
+              inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.navbar:hover {
+  background-color: rgba(200, 200, 200, 0.25);
+  box-shadow: 0 0 30px rgba(200, 200, 200, 0.5),
+              0 0 60px rgba(200, 200, 200, 0.3),
+              inset 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+/* Liens de la navbar */
+.navbar a {
+  color: rgba(255, 255, 255, 0.719);
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 30px;
+  transition: color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+  border-radius: 8px;
+  opacity: 0.5;
+}
+
+.navbar:hover a {
+  opacity: 1;
+}
+
+.navbar a:hover {
+  color: rgb(255, 255, 255);
+  opacity: 1;
+}
+
+/* Wrapper des liens (prévu pour usage futur) */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+

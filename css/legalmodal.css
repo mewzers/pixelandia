@@ -1,0 +1,123 @@
+
+/* ============================================================
+   MODALE - Privacy Policy
+   ============================================================ */
+
+/* Overlay de la modale */
+#privacy-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: transparent;
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#privacy-modal.visible {
+  opacity: 1;
+}
+
+/* Boîte de contenu */
+#privacy-content {
+  max-width: 1200px;
+  width: min(95vw, 1200px);
+  max-height: 80vh;
+  overflow-y: scroll;
+  margin: auto;
+  background: transparent;
+  backdrop-filter: none;
+  color: #ccc;
+  padding: 40px;
+  border-radius: 0;
+  position: relative;
+  opacity: 0.15;
+  transform: translateY(12px);
+  filter: blur(6px);
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+  box-shadow: none;
+  border: none;
+}
+
+#privacy-content > * {
+  opacity: 0.25;
+  transition: opacity 0.45s ease;
+}
+
+#privacy-modal.visible #privacy-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+#privacy-modal.visible #privacy-content > * {
+  opacity: 1;
+}
+
+/* Titres (couleur appliquée dynamiquement par le thème JS) */
+#privacy-content h1, #privacy-content h2 {
+  color: #fff;
+  margin: 1rem 0 0.5rem;
+}
+
+#privacy-content h3, #privacy-content h4 {
+  margin: 0.8rem 0 0.4rem;
+}
+
+/* Texte */
+#privacy-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* Listes */
+#privacy-content ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#privacy-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Liens */
+#privacy-content a {
+  color: inherit;
+  opacity: 0.8;
+}
+
+/* Bouton fermeture */
+#privacy-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Masque le titre et la flèche pendant l'ouverture de la modale */
+main h1,
+.scroll-arrow {
+  transition: opacity 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+              visibility 0s linear 0.22s;
+  will-change: opacity, transform;
+}
+
+body.modal-open main h1,
+body.modal-open .scroll-arrow {
+  opacity: 0 !important;
+  transform: translateY(-12px) scale(0.98);
+  pointer-events: none;
+  animation: none !important;
+  visibility: hidden;
+  transition: opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+              visibility 0s linear 0s;
+}
