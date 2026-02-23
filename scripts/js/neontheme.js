@@ -1,4 +1,4 @@
-const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+﻿const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 export const neonTheme = {
     bodyBg: isDark
         ? 'linear-gradient(135deg, #0d0f1a, #120d2b)'
@@ -9,15 +9,15 @@ export const neonTheme = {
         ? '0 0 5px #00fff7,0 0 10px #00fff7,0 0 20px #00fff7,0 0 40px #00fff7,0 0 80px #00fff7'
         : '0 0 5px #4a90e2,0 0 10px #4a90e2,0 0 20px #4a90e2',
     h1Anim: isDark ? 'glitch-dark 2s infinite' : 'glitch-light 2s infinite',
-    footerBg: isDark ? 'rgba(0,0,0,0.45)' : 'rgba(200,230,255,0.85)',
+    footerBg: isDark ? 'rgba(10, 12, 22, 0.58)' : 'rgba(44, 68, 100, 0.52)',
     footerColor: isDark ? '#8888ff' : '#1a3d7c',
-    footerShadow: isDark ? '0 0 8px #4444ff88' : 'none',
+    footerShadow: isDark ? '0 0 10px #2b3d7a88' : '0 0 8px rgba(16, 35, 66, 0.35)',
     footerBeforeBg: isDark
-        ? 'linear-gradient(90deg, #00f0ff, #0040ff, #00f0ff)'
-        : 'linear-gradient(90deg, #0077ff, #00bfff, #0077ff)',
+        ? 'linear-gradient(90deg, rgba(0, 240, 255, 0.8), rgba(0, 64, 255, 0.8), rgba(0, 240, 255, 0.8))'
+        : 'linear-gradient(90deg, rgba(0, 119, 255, 0.72), rgba(0, 191, 255, 0.72), rgba(0, 119, 255, 0.72))',
     footerBeforeShadow: isDark
-        ? '0 0 8px #00f0ff,0 0 20px #00f0ff,0 0 30px #0040ff'
-        : '0 0 6px #0077ff,0 0 15px #00bfff,0 0 25px #0077ff',
+        ? '0 0 6px rgba(0, 240, 255, 0.45),0 0 14px rgba(0, 240, 255, 0.35),0 0 22px rgba(0, 64, 255, 0.28)'
+        : '0 0 5px rgba(0, 119, 255, 0.36),0 0 11px rgba(0, 191, 255, 0.28),0 0 17px rgba(0, 119, 255, 0.22)',
     modalBg: isDark ? 'rgba(15, 20, 35, 0.95)' : 'rgba(245, 252, 255, 0.96)',
     modalTextColor: isDark ? '#d4f7ff' : '#12345c',
     modalHeadingColor: isDark ? '#00fff7' : '#005fa3',
@@ -34,3 +34,4 @@ export const neonTheme = {
         ? '0 0 10px rgba(0, 255, 247, 0.95)'
         : '0 0 10px rgba(0, 119, 255, 0.9)'
 };
+

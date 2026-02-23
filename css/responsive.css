@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
@@ -9,6 +9,8 @@
 
 @media (max-width: 600px) {
   h1 { font-size: 3rem; letter-spacing: 0.1em; }
+  #theme-toggle { width: 40px; height: 40px; top: 24px; right: 10px; font-size: 1.25rem; }
+  #theme-toggle-hint { top: 24px; right: 62px; font-size: 0.58rem; padding: 4px 7px; }
   .navbar {
     width: calc(100% - 20px);
     margin: 12px 10px 0;
