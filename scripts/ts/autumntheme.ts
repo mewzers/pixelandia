@@ -1,0 +1,31 @@
+﻿export const autumnTheme = {
+  bodyBg: 'linear-gradient(135deg, #4b2e0f, #a0522d, #d2691e)',
+  bodyColor: '#ffe5b4',
+
+  h1Color: '#ff8c00',
+  h1Shadow: '0 0 5px #ff8c00,0 0 10px #ffa500,0 0 20px #ffd700',
+  h1Anim: 'glitch-automne 2s infinite',
+
+  footerBg: 'rgba(78, 44, 16, 0.58)',
+  footerColor: '#ffcc80',
+  footerShadow: '0 0 10px rgba(120, 52, 0, 0.55)',
+  footerBeforeBg: 'linear-gradient(90deg, #ffa500, #ff8c00, #ffd700)',
+  footerBeforeShadow: '0 0 8px #ffa500,0 0 20px #ff8c00,0 0 30px #ffd700',
+  modalBg: 'rgba(48, 29, 12, 0.94)',
+  modalTextColor: '#ffe5bf',
+  modalHeadingColor: '#ffb347',
+  modalBorderColor: 'rgba(255, 140, 0, 0.35)',
+  modalLinkColor: '#ffd27f',
+  modalCloseColor: '#ffb347',
+  modalScrollbarTrack: 'rgba(75,46,15,0.45)',
+  modalScrollbarThumb: 'linear-gradient(180deg, #ff8c00, #ffd700)',
+  modalScrollbarThumbHover: '#ffa500',
+  footerLinkHoverColor: '#ffc14d',
+  footerLinkHoverShadow: '0 0 10px rgba(255, 193, 77, 0.95)',
+
+  // Scrollbar
+  scrollbarTrack: 'rgba(75,46,15,0.4)',
+  scrollbarThumb: 'linear-gradient(180deg, #ff8c00, #ffd700)',
+  scrollbarThumbHover: '#ffa500'
+};
+

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="fr">
 
   <!-- ============================================================
@@ -7,6 +7,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
     <link rel="icon" href="img/leaf.webp" type="image/webp" />
     <link rel="icon" href="img/leaf.png" type="image/png" />
     <title>Pixelandia - Bienvenue</title>
@@ -34,7 +37,9 @@
       <div class="dropdown">
         <div class="dropdown-toggle"><a>Menu ▾</a></div>
         <div class="dropdown-menu">
-          <a href="https://github.com/mewzers" target="_blank">Github</a>
+          <a href="https://github.com/mewzers" target="_blank" rel="noopener noreferrer">Github</a>
+          <button id="theme-menu-toggle" type="button" class="dropdown-theme-toggle">Th&egrave;me : normal</button>
+          <div class="dropdown-theme-hint">Clique ici pour changer le theme</div>
         </div>
       </div>
     </div>

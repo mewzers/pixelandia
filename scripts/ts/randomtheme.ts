@@ -1,4 +1,4 @@
-﻿import { neonTheme } from './neontheme.js';
+﻿import { Theme, neonTheme } from './neontheme.js';
 import { autumnTheme } from './autumntheme.js';
 
 // Mise à jour de l'année
@@ -7,16 +7,19 @@ if (yearEl) {
     yearEl.textContent = new Date().getFullYear().toString();
 }
 
+type ThemeName = 'neon' | 'autumn' | 'rainbow';
+
 const THEME_STORAGE_KEY = 'pixelandia-theme';
 const STYLE_ELEMENT_ID = 'theme-dynamic-styles';
 const RAINBOW_HOLD_MS = 1000;
 const TAP_MAX_MS = 220;
 const DEFAULT_THEME_HINT_TEXT = 'Clique ici pour changer le theme';
-const THEME_HINT_LOADING_TEXTS = ['Chargement .', 'Chargement ..', 'Chargement ...'];
+const THEME_HINT_LOADING_TEXTS = ['Chargement .', 'Chargement ..', 'Chargement ...'] as const;
 const INITIAL_THEME_HINT_MS = 4000;
 const DEFAULT_MENU_THEME_HINT_TEXT = 'Clique ici pour changer le theme';
 const MENU_THEME_HINT_LOADING_TEXT = 'Chargement...';
-const rainbowTheme = {
+
+const rainbowTheme: Theme = {
     bodyBg: 'linear-gradient(135deg, #f1f5ff, #e7edf8)',
     bodyColor: '#111111',
     h1Color: '#111111',
@@ -39,87 +42,96 @@ const rainbowTheme = {
     footerLinkHoverColor: '#4d88c9',
     footerLinkHoverShadow: '0 0 10px rgba(77, 136, 201, 0.55)'
 };
-const availableThemes = {
+
+const availableThemes: Record<ThemeName, Theme> = {
     neon: neonTheme,
     autumn: autumnTheme,
     rainbow: rainbowTheme
 };
 
-const themeToggle = document.getElementById('theme-toggle');
-const themeHint = document.getElementById('theme-toggle-hint');
-const themeMenuToggle = document.getElementById('theme-menu-toggle');
-const menuThemeHint = document.querySelector('.dropdown-theme-hint');
-let rainbowHoldTimer = null;
+const themeToggle = document.getElementById('theme-toggle') as HTMLButtonElement | null;
+const themeHint = document.getElementById('theme-toggle-hint') as HTMLElement | null;
+const themeMenuToggle = document.getElementById('theme-menu-toggle') as HTMLButtonElement | null;
+const menuThemeHint = document.querySelector('.dropdown-theme-hint') as HTMLElement | null;
+let rainbowHoldTimer: number | null = null;
 let rainbowHoldTriggered = false;
-let rainbowHoldAnimationFrame = null;
+let rainbowHoldAnimationFrame: number | null = null;
 let rainbowHoldStartedAt = 0;
 let themeTogglePointerDownAt = 0;
-let activeThemeTogglePointerId = null;
+let activeThemeTogglePointerId: number | null = null;
 let suppressNextThemeToggleClick = false;
-let menuRainbowHoldTimer = null;
+let menuRainbowHoldTimer: number | null = null;
 let menuRainbowHoldTriggered = false;
-let menuRainbowHoldAnimationFrame = null;
+let menuRainbowHoldAnimationFrame: number | null = null;
 let menuRainbowHoldStartedAt = 0;
 let menuThemeTogglePointerDownAt = 0;
-let menuPreviewRestoreValue = null;
-let menuPreviewRestoreLabel = null;
+let menuPreviewRestoreValue: 'normal' | 'neon' | null = null;
+let menuPreviewRestoreLabel: string | null = null;
 let suppressNextMenuThemeToggleClick = false;
-let themeHintLoadingInterval = null;
+let themeHintLoadingInterval: number | null = null;
 let themeHintLoadingIndex = 0;
 
-const getStoredTheme = () => {
+const getStoredTheme = (): ThemeName | null => {
     try {
         const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
         if (storedTheme === 'neon' || storedTheme === 'autumn' || storedTheme === 'rainbow') {
             return storedTheme;
         }
-    }
-    catch {
+    } catch {
         return null;
     }
     return null;
 };
 
-const saveTheme = (themeName) => {
+const saveTheme = (themeName: ThemeName): void => {
     try {
         window.localStorage.setItem(THEME_STORAGE_KEY, themeName);
-    }
-    catch {
+    } catch {
         // Ignore storage errors
     }
 };
 
-const hideThemeHint = () => {
+const hideThemeHint = (): void => {
     stopThemeHintLoading(false);
     document.body.classList.remove('theme-hint-visible');
     if (themeHint) {
         themeHint.setAttribute('aria-hidden', 'true');
     }
 };
-const showThemeHint = () => {
-    if (!themeHint)
-        return;
+
+const showThemeHint = (): void => {
+    if (!themeHint) return;
     themeHint.setAttribute('aria-hidden', 'false');
     document.body.classList.add('theme-hint-visible');
 };
-const setThemeHintText = (text) => {
-    if (!themeHint)
-        return;
+
+const setThemeHintText = (text: string): void => {
+    if (!themeHint) return;
     themeHint.textContent = text;
 };
-const setMenuThemeHintText = (text) => {
-    if (!menuThemeHint)
-        return;
+
+const setMenuThemeHintText = (text: string): void => {
+    if (!menuThemeHint) return;
     menuThemeHint.textContent = text;
 };
-const getMenuThemeButtonValue = (themeName) => (themeName === 'neon'
-    ? 'normal'
-    : themeName === 'rainbow'
-        ? (Math.random() < 0.5 ? 'neon' : 'normal')
-        : 'neon');
-const getMenuThemeButtonTextFromValue = (menuValue) => (`Th\u00e8me : ${menuValue}`);
-const getMenuThemeButtonText = (themeName, menuValue) => (getMenuThemeButtonTextFromValue(menuValue ?? getMenuThemeButtonValue(themeName)));
-const stopThemeHintLoading = (resetText = true) => {
+
+const getMenuThemeButtonValue = (themeName: ThemeName): 'normal' | 'neon' => (
+    themeName === 'neon'
+        ? 'normal'
+        : themeName === 'rainbow'
+            ? (Math.random() < 0.5 ? 'neon' : 'normal')
+            : 'neon'
+);
+
+const getMenuThemeButtonTextFromValue = (menuValue: 'normal' | 'neon'): string => (
+    `Th\u00e8me : ${menuValue}`
+);
+
+const getMenuThemeButtonText = (themeName: ThemeName, menuValue?: 'normal' | 'neon'): string => (
+    getMenuThemeButtonTextFromValue(menuValue ?? getMenuThemeButtonValue(themeName))
+);
+
+const stopThemeHintLoading = (resetText: boolean = true): void => {
     if (themeHintLoadingInterval !== null) {
         window.clearInterval(themeHintLoadingInterval);
         themeHintLoadingInterval = null;
@@ -128,29 +140,28 @@ const stopThemeHintLoading = (resetText = true) => {
         setThemeHintText(DEFAULT_THEME_HINT_TEXT);
     }
 };
-const startThemeHintLoading = () => {
-    if (!themeHint)
-        return;
+
+const startThemeHintLoading = (): void => {
+    if (!themeHint) return;
     showThemeHint();
     stopThemeHintLoading(false);
     themeHintLoadingIndex = 0;
     setThemeHintText(THEME_HINT_LOADING_TEXTS[themeHintLoadingIndex]);
-    themeHintLoadingInterval = window.setInterval(() => {
+    themeHintLoadingInterval = window.setInterval((): void => {
         themeHintLoadingIndex = (themeHintLoadingIndex + 1) % THEME_HINT_LOADING_TEXTS.length;
         setThemeHintText(THEME_HINT_LOADING_TEXTS[themeHintLoadingIndex]);
     }, 250);
 };
 
-const triggerThemeToggleBurst = () => {
-    if (!themeToggle)
-        return;
+const triggerThemeToggleBurst = (): void => {
+    if (!themeToggle) return;
     themeToggle.classList.remove('theme-toggle-burst');
     // Force reflow so the burst can replay each time
     void themeToggle.offsetWidth;
     themeToggle.classList.add('theme-toggle-burst');
 };
 
-const applyTheme = (themeName) => {
+const applyTheme = (themeName: ThemeName): void => {
     const theme = availableThemes[themeName];
     document.body.setAttribute('data-theme', themeName);
 
@@ -161,7 +172,7 @@ const applyTheme = (themeName) => {
     document.documentElement.style.setProperty('--footer-link-hover-shadow', theme.footerLinkHoverShadow);
 
     // h1
-    const h1 = document.querySelector('h1');
+    const h1 = document.querySelector<HTMLHeadingElement>('h1');
     if (h1) {
         h1.style.color = theme.h1Color;
         h1.style.textShadow = theme.h1Shadow;
@@ -169,7 +180,7 @@ const applyTheme = (themeName) => {
     }
 
     // footer
-    const footer = document.querySelector('footer');
+    const footer = document.querySelector<HTMLElement>('footer');
     if (footer) {
         footer.style.background = theme.footerBg;
         footer.style.color = theme.footerColor;
@@ -177,7 +188,7 @@ const applyTheme = (themeName) => {
     }
 
     // Liseré du footer (::before)
-    let styleSheet = document.getElementById(STYLE_ELEMENT_ID);
+    let styleSheet = document.getElementById(STYLE_ELEMENT_ID) as HTMLStyleElement | null;
     if (!styleSheet) {
         styleSheet = document.createElement('style');
         styleSheet.id = STYLE_ELEMENT_ID;
@@ -241,7 +252,7 @@ const applyTheme = (themeName) => {
 `;
 
     // Modale privacy
-    const privacyContent = document.getElementById('privacy-content');
+    const privacyContent = document.getElementById('privacy-content') as HTMLElement | null;
     if (privacyContent) {
         privacyContent.style.background = 'transparent';
         privacyContent.style.color = theme.modalTextColor;
@@ -249,17 +260,17 @@ const applyTheme = (themeName) => {
         privacyContent.style.boxShadow = 'none';
     }
 
-    document.querySelectorAll('#privacy-content h1, #privacy-content h2, #privacy-content h3, #privacy-content h4')
-        .forEach((heading) => {
+    document.querySelectorAll<HTMLElement>('#privacy-content h1, #privacy-content h2, #privacy-content h3, #privacy-content h4')
+        .forEach((heading): void => {
             heading.style.color = theme.modalHeadingColor;
         });
 
-    document.querySelectorAll('#privacy-content a')
-        .forEach((link) => {
+    document.querySelectorAll<HTMLAnchorElement>('#privacy-content a')
+        .forEach((link): void => {
             link.style.color = theme.modalLinkColor;
         });
 
-    const privacyClose = document.getElementById('privacy-close');
+    const privacyClose = document.getElementById('privacy-close') as HTMLElement | null;
     if (privacyClose) {
         privacyClose.style.color = theme.modalCloseColor;
     }
@@ -267,12 +278,11 @@ const applyTheme = (themeName) => {
     if (themeToggle) {
         themeToggle.setAttribute('data-theme', themeName);
         let nextThemeLabel = 'Activer le thème automne';
-        if (themeName === 'autumn')
-            nextThemeLabel = 'Activer le thème neon';
-        if (themeName === 'rainbow')
-            nextThemeLabel = 'Activer le thème neon';
+        if (themeName === 'autumn') nextThemeLabel = 'Activer le thème neon';
+        if (themeName === 'rainbow') nextThemeLabel = 'Activer le thème neon';
         themeToggle.setAttribute('aria-label', nextThemeLabel);
     }
+
     if (themeMenuToggle) {
         const menuValue = getMenuThemeButtonValue(themeName);
         const menuLabel = getMenuThemeButtonText(themeName, menuValue);
@@ -282,25 +292,27 @@ const applyTheme = (themeName) => {
     }
 };
 
-let activeThemeName = getStoredTheme() ?? (Math.random() < 0.5 ? 'neon' : 'autumn');
+let activeThemeName: ThemeName = getStoredTheme() ?? (Math.random() < 0.5 ? 'neon' : 'autumn');
 applyTheme(activeThemeName);
 saveTheme(activeThemeName);
 
 if (themeToggle) {
-    themeToggle.addEventListener('contextmenu', (event) => {
+    themeToggle.addEventListener('contextmenu', (event: MouseEvent): void => {
         event.preventDefault();
     });
-    themeToggle.addEventListener('touchstart', (event) => {
-        if (event.cancelable)
-            event.preventDefault();
+    themeToggle.addEventListener('touchstart', (event: TouchEvent): void => {
+        if (event.cancelable) event.preventDefault();
     }, { passive: false });
+
     const HOLD_PROGRESS_PROPERTY = '--theme-toggle-hold-progress';
-    const navbar = document.querySelector('.navbar');
-    const setHoldProgress = (progress) => {
+    const navbar = document.querySelector<HTMLElement>('.navbar');
+
+    const setHoldProgress = (progress: number): void => {
         const clampedProgress = Math.min(1, Math.max(0, progress));
         themeToggle.style.setProperty(HOLD_PROGRESS_PROPERTY, clampedProgress.toString());
     };
-    const stopHoldVisual = (resetProgress) => {
+
+    const stopHoldVisual = (resetProgress: boolean): void => {
         if (rainbowHoldAnimationFrame !== null) {
             window.cancelAnimationFrame(rainbowHoldAnimationFrame);
             rainbowHoldAnimationFrame = null;
@@ -310,13 +322,14 @@ if (themeToggle) {
             setHoldProgress(0);
         }
     };
-    const forceResetThemeToggleState = () => {
+
+    const forceResetThemeToggleState = (): void => {
         stopHoldVisual(true);
         themeToggle.style.removeProperty(HOLD_PROGRESS_PROPERTY);
         themeToggle.classList.add('theme-toggle-force-reset');
         themeToggle.style.pointerEvents = 'none';
-        window.requestAnimationFrame(() => {
-            window.requestAnimationFrame(() => {
+        window.requestAnimationFrame((): void => {
+            window.requestAnimationFrame((): void => {
                 themeToggle.classList.remove('theme-toggle-force-reset');
                 themeToggle.style.pointerEvents = '';
             });
@@ -327,7 +340,8 @@ if (themeToggle) {
         }
         activeThemeTogglePointerId = null;
     };
-    const updateHoldVisual = (timestamp) => {
+
+    const updateHoldVisual = (timestamp: number): void => {
         const elapsed = timestamp - rainbowHoldStartedAt;
         const linearProgress = Math.min(1, Math.max(0, elapsed / RAINBOW_HOLD_MS));
         // Courbe plus rapide au debut, tout en restant fluide.
@@ -335,37 +349,40 @@ if (themeToggle) {
         setHoldProgress(easedProgress);
         if (elapsed < RAINBOW_HOLD_MS) {
             rainbowHoldAnimationFrame = window.requestAnimationFrame(updateHoldVisual);
-        }
-        else {
+        } else {
             rainbowHoldAnimationFrame = null;
         }
     };
-    const startHoldVisual = () => {
+
+    const startHoldVisual = (): void => {
         stopHoldVisual(true);
         rainbowHoldStartedAt = window.performance.now();
         themeToggle.classList.add('theme-toggle-holding');
         rainbowHoldAnimationFrame = window.requestAnimationFrame(updateHoldVisual);
     };
-    const clearRainbowHold = (forceReset = true) => {
+
+    const clearRainbowHold = (forceReset: boolean = true): void => {
         if (rainbowHoldTimer !== null) {
             window.clearTimeout(rainbowHoldTimer);
             rainbowHoldTimer = null;
         }
         if (forceReset) {
             forceResetThemeToggleState();
-        }
-        else {
+        } else {
             stopHoldVisual(true);
         }
         hideThemeHint();
     };
-    const rectanglesIntersect = (a, b) => (a.left < b.right &&
+
+    const rectanglesIntersect = (a: DOMRect, b: DOMRect): boolean => (
+        a.left < b.right &&
         a.right > b.left &&
         a.top < b.bottom &&
-        a.bottom > b.top);
-    const syncThemeToggleDisabledState = () => {
-        if (!navbar)
-            return;
+        a.bottom > b.top
+    );
+
+    const syncThemeToggleDisabledState = (): void => {
+        if (!navbar) return;
         const toggleRect = themeToggle.getBoundingClientRect();
         const navbarRect = navbar.getBoundingClientRect();
         const isHidden = rectanglesIntersect(toggleRect, navbarRect);
@@ -380,22 +397,21 @@ if (themeToggle) {
             themeMenuToggle.classList.toggle('is-visible', isHidden);
         }
     };
-    themeToggle.addEventListener('pointerdown', (event) => {
-        if (themeToggle.classList.contains('theme-toggle-hidden'))
-            return;
+
+    themeToggle.addEventListener('pointerdown', (event: PointerEvent): void => {
+        if (themeToggle.classList.contains('theme-toggle-hidden')) return;
         themeTogglePointerDownAt = window.performance.now();
         activeThemeTogglePointerId = event.pointerId;
         try {
             themeToggle.setPointerCapture(event.pointerId);
-        }
-        catch {
+        } catch {
             // Ignore capture errors
         }
         clearRainbowHold(false);
         startThemeHintLoading();
         rainbowHoldTriggered = false;
         startHoldVisual();
-        rainbowHoldTimer = window.setTimeout(() => {
+        rainbowHoldTimer = window.setTimeout((): void => {
             rainbowHoldTimer = null;
             rainbowHoldTriggered = true;
             stopHoldVisual(false);
@@ -404,8 +420,7 @@ if (themeToggle) {
                 activeThemeName = 'neon';
                 applyTheme(activeThemeName);
                 saveTheme(activeThemeName);
-            }
-            else {
+            } else {
                 triggerThemeToggleBurst();
                 activeThemeName = 'rainbow';
                 applyTheme(activeThemeName);
@@ -416,7 +431,8 @@ if (themeToggle) {
             hideThemeHint();
         }, RAINBOW_HOLD_MS);
     });
-    themeToggle.addEventListener('pointerup', (event) => {
+
+    themeToggle.addEventListener('pointerup', (event: PointerEvent): void => {
         const hadActiveHold = rainbowHoldTimer !== null;
         const holdDuration = Math.max(0, window.performance.now() - themeTogglePointerDownAt);
         const isQuickTap = holdDuration <= TAP_MAX_MS;
@@ -441,7 +457,8 @@ if (themeToggle) {
     window.addEventListener('blur', clearRainbowHold);
     window.addEventListener('touchend', clearRainbowHold, { passive: true });
     window.addEventListener('touchcancel', clearRainbowHold, { passive: true });
-    themeToggle.addEventListener('click', () => {
+
+    themeToggle.addEventListener('click', (): void => {
         if (suppressNextThemeToggleClick) {
             suppressNextThemeToggleClick = false;
             return;
@@ -455,11 +472,13 @@ if (themeToggle) {
         saveTheme(activeThemeName);
         hideThemeHint();
     });
-    themeToggle.addEventListener('animationend', (event) => {
+
+    themeToggle.addEventListener('animationend', (event: AnimationEvent): void => {
         if (event.animationName === 'themeToggleBurst') {
             themeToggle.classList.remove('theme-toggle-burst');
         }
     });
+
     window.addEventListener('resize', syncThemeToggleDisabledState);
     window.addEventListener('orientationchange', syncThemeToggleDisabledState);
     window.addEventListener('scroll', syncThemeToggleDisabledState, { passive: true });
@@ -469,27 +488,31 @@ if (themeToggle) {
 if (themeHint) {
     setThemeHintText(DEFAULT_THEME_HINT_TEXT);
     showThemeHint();
-    window.setTimeout(() => {
+    window.setTimeout((): void => {
         hideThemeHint();
     }, INITIAL_THEME_HINT_MS);
 }
+
 if (menuThemeHint) {
     setMenuThemeHintText(DEFAULT_MENU_THEME_HINT_TEXT);
 }
+
 if (themeMenuToggle) {
-    themeMenuToggle.addEventListener('contextmenu', (event) => {
+    themeMenuToggle.addEventListener('contextmenu', (event: MouseEvent): void => {
         event.preventDefault();
     });
-    themeMenuToggle.addEventListener('touchstart', (event) => {
-        if (event.cancelable)
-            event.preventDefault();
+    themeMenuToggle.addEventListener('touchstart', (event: TouchEvent): void => {
+        if (event.cancelable) event.preventDefault();
     }, { passive: false });
+
     const MENU_HOLD_PROGRESS_PROPERTY = '--theme-menu-hold-progress';
-    const setMenuHoldProgress = (progress) => {
+
+    const setMenuHoldProgress = (progress: number): void => {
         const clampedProgress = Math.min(1, Math.max(0, progress));
         themeMenuToggle.style.setProperty(MENU_HOLD_PROGRESS_PROPERTY, clampedProgress.toString());
     };
-    const stopMenuHoldVisual = (resetProgress) => {
+
+    const stopMenuHoldVisual = (resetProgress: boolean): void => {
         if (menuRainbowHoldAnimationFrame !== null) {
             window.cancelAnimationFrame(menuRainbowHoldAnimationFrame);
             menuRainbowHoldAnimationFrame = null;
@@ -499,24 +522,26 @@ if (themeMenuToggle) {
             setMenuHoldProgress(0);
         }
     };
-    const updateMenuHoldVisual = (timestamp) => {
+
+    const updateMenuHoldVisual = (timestamp: number): void => {
         const elapsed = timestamp - menuRainbowHoldStartedAt;
         const progress = Math.min(1, Math.max(0, elapsed / RAINBOW_HOLD_MS));
         setMenuHoldProgress(progress);
         if (elapsed < RAINBOW_HOLD_MS) {
             menuRainbowHoldAnimationFrame = window.requestAnimationFrame(updateMenuHoldVisual);
-        }
-        else {
+        } else {
             menuRainbowHoldAnimationFrame = null;
         }
     };
-    const startMenuHoldVisual = () => {
+
+    const startMenuHoldVisual = (): void => {
         stopMenuHoldVisual(true);
         menuRainbowHoldStartedAt = window.performance.now();
         themeMenuToggle.classList.add('theme-menu-holding');
         menuRainbowHoldAnimationFrame = window.requestAnimationFrame(updateMenuHoldVisual);
     };
-    const clearMenuRainbowHold = (restoreButton = true) => {
+
+    const clearMenuRainbowHold = (restoreButton: boolean = true): void => {
         if (menuRainbowHoldTimer !== null) {
             window.clearTimeout(menuRainbowHoldTimer);
             menuRainbowHoldTimer = null;
@@ -547,7 +572,8 @@ if (themeMenuToggle) {
         menuPreviewRestoreLabel = null;
         setMenuThemeHintText(DEFAULT_MENU_THEME_HINT_TEXT);
     };
-    themeMenuToggle.addEventListener('pointerdown', () => {
+
+    themeMenuToggle.addEventListener('pointerdown', (): void => {
         menuThemeTogglePointerDownAt = window.performance.now();
         const currentValue = themeMenuToggle.getAttribute('data-target-theme');
         const currentLabel = themeMenuToggle.textContent;
@@ -563,7 +589,7 @@ if (themeMenuToggle) {
         setMenuThemeHintText(MENU_THEME_HINT_LOADING_TEXT);
         menuRainbowHoldTriggered = false;
         startMenuHoldVisual();
-        menuRainbowHoldTimer = window.setTimeout(() => {
+        menuRainbowHoldTimer = window.setTimeout((): void => {
             menuRainbowHoldTimer = null;
             menuRainbowHoldTriggered = true;
             stopMenuHoldVisual(false);
@@ -575,7 +601,7 @@ if (themeMenuToggle) {
                         : themeMenuToggle.getAttribute('data-target-theme') === 'neon'
                             ? 'neon'
                             : null);
-                const targetTheme = buttonValue === 'neon'
+                const targetTheme: ThemeName | null = buttonValue === 'neon'
                     ? 'neon'
                     : buttonValue === 'normal'
                         ? 'autumn'
@@ -585,8 +611,7 @@ if (themeMenuToggle) {
                     applyTheme(activeThemeName);
                     saveTheme(activeThemeName);
                 }
-            }
-            else {
+            } else {
                 activeThemeName = 'rainbow';
                 applyTheme(activeThemeName);
                 saveTheme(activeThemeName);
@@ -594,7 +619,8 @@ if (themeMenuToggle) {
             hideThemeHint();
         }, RAINBOW_HOLD_MS);
     });
-    themeMenuToggle.addEventListener('pointerup', (event) => {
+
+    themeMenuToggle.addEventListener('pointerup', (event: PointerEvent): void => {
         const hadActiveHold = menuRainbowHoldTimer !== null;
         const holdDuration = Math.max(0, window.performance.now() - menuThemeTogglePointerDownAt);
         const isQuickTap = holdDuration <= TAP_MAX_MS;
@@ -612,7 +638,8 @@ if (themeMenuToggle) {
     });
     themeMenuToggle.addEventListener('pointercancel', clearMenuRainbowHold);
     themeMenuToggle.addEventListener('pointerleave', clearMenuRainbowHold);
-    themeMenuToggle.addEventListener('click', () => {
+
+    themeMenuToggle.addEventListener('click', (): void => {
         if (suppressNextMenuThemeToggleClick) {
             suppressNextMenuThemeToggleClick = false;
             return;

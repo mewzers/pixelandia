@@ -8,6 +8,18 @@
    ============================================================ */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+@property --theme-toggle-spot-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 26%;
+}
+
+@property --theme-toggle-spot-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 24%;
+}
+
 /* ============================================================
    BASE - HTML / BODY
    ============================================================ */
@@ -69,6 +81,10 @@ body > * {
 }
 
 #theme-toggle {
+  --theme-toggle-hold-progress: 0;
+  --theme-toggle-fill-rgb: 115, 224, 255;
+  --theme-toggle-spot-x: 26%;
+  --theme-toggle-spot-y: 24%;
   position: fixed;
   top: 34px;
   right: 16px;
@@ -78,14 +94,15 @@ body > * {
   border-radius: 999px;
   overflow: hidden;
   cursor: pointer;
-  z-index: 25;
+  z-index: 3000;
   background-color: rgba(120, 98, 170, 0.28);
   background-image:
-    radial-gradient(circle at 26% 24%, rgba(255, 255, 255, 0.62) 0 14%, transparent 16%),
+    radial-gradient(circle at var(--theme-toggle-spot-x) var(--theme-toggle-spot-y), rgba(255, 255, 255, 0.62) 0 14%, transparent 16%),
     radial-gradient(circle at 50% 50%, rgba(0, 255, 247, 0.38) 0 24%, transparent 27%),
     radial-gradient(circle at 50% 50%, rgba(209, 0, 255, 0.28) 0 36%, transparent 40%),
     radial-gradient(circle at 50% 50%, rgba(18, 12, 42, 0.52) 0 20%, rgba(18, 12, 42, 0.22) 32%, transparent 34%),
     linear-gradient(145deg, rgba(170, 148, 228, 0.26) 0%, rgba(90, 66, 150, 0.3) 58%, rgba(50, 35, 90, 0.34) 100%);
+  animation: themeToggleWhiteSpotDrift 6.4s ease-in-out infinite;
   border: 1px solid rgba(255, 255, 255, 0.34);
   backdrop-filter: blur(8px) saturate(130%);
   -webkit-backdrop-filter: blur(8px) saturate(130%);
@@ -96,24 +113,31 @@ body > * {
     inset 0 -10px 16px rgba(10, 8, 24, 0.3),
     0 8px 20px rgba(8, 6, 20, 0.26);
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  will-change: transform, filter, opacity;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #theme-toggle::before {
   content: "";
   position: absolute;
-  top: -24%;
-  left: -42%;
-  width: 44%;
-  height: 148%;
-  border-radius: 999px;
-  background: linear-gradient(
-    115deg,
+  top: -34%;
+  left: -34%;
+  width: 168%;
+  height: 168%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.72) 45%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(255, 255, 255, 0.34) 20%,
+    rgba(255, 255, 255, 0.08) 46%,
+    rgba(255, 255, 255, 0) 72%
   );
-  transform: translateX(-165%) rotate(10deg);
-  opacity: 0;
+  transform: rotate(0deg) scale(1);
+  opacity: 0.4;
+  animation: themeTogglePlanetSpin 8.8s linear infinite;
   pointer-events: none;
 }
 
@@ -132,18 +156,35 @@ body > * {
   );
   filter: blur(4px);
   transform: scale(1) rotate(0deg);
+  opacity: 0.54;
+  animation: themeTogglePlanetSpin 6.6s linear infinite;
+}
+
+#theme-toggle[data-theme="autumn"]::before {
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 175, 88, 0) 0%,
+    rgba(255, 214, 153, 0.42) 24%,
+    rgba(255, 153, 58, 0.22) 50%,
+    rgba(255, 175, 88, 0) 78%
+  );
+  filter: blur(3.4px);
+  opacity: 0.5;
+  animation: themeTogglePlanetSpin 8.4s linear infinite;
 }
 
 #theme-toggle[data-theme="autumn"] {
+  --theme-toggle-fill-rgb: 255, 166, 86;
   background-color: rgba(255, 146, 35, 0.34);
   background-image:
-    radial-gradient(circle at 26% 24%, rgba(255, 255, 255, 0.62) 0 14%, transparent 16%),
+    radial-gradient(circle at var(--theme-toggle-spot-x) var(--theme-toggle-spot-y), rgba(255, 255, 255, 0.62) 0 14%, transparent 16%),
     radial-gradient(circle at 50% 52%, rgba(255, 237, 199, 0.94) 0 15%, transparent 16%),
     radial-gradient(circle at 50% 52%, rgba(255, 205, 132, 0.36) 0 16.5%, transparent 17.5%),
     radial-gradient(circle at 45% 48%, rgba(190, 115, 40, 0.32) 0 3.2%, transparent 3.8%),
     radial-gradient(circle at 57% 56%, rgba(190, 115, 40, 0.28) 0 2.8%, transparent 3.4%),
     radial-gradient(circle at 53% 44%, rgba(255, 248, 228, 0.42) 0 2.6%, transparent 3.2%),
     linear-gradient(145deg, rgba(255, 214, 160, 0.3) 0%, rgba(255, 148, 36, 0.34) 58%, rgba(198, 96, 0, 0.36) 100%);
+  animation: themeToggleWhiteSpotDrift 6.8s ease-in-out infinite;
   border-color: rgba(255, 238, 213, 0.42);
   box-shadow:
     inset 0 1px 0 rgba(255, 247, 230, 0.62),
@@ -152,8 +193,45 @@ body > * {
     0 8px 20px rgba(34, 16, 2, 0.24);
 }
 
+#theme-toggle[data-theme="rainbow"] {
+  --theme-toggle-fill-rgb: 174, 205, 255;
+  background-color: rgba(255, 255, 255, 0.44);
+  background-image:
+    radial-gradient(circle at var(--theme-toggle-spot-x) var(--theme-toggle-spot-y), rgba(255, 255, 255, 0.62) 0 14%, transparent 16%),
+    radial-gradient(circle at 50% 50%, rgba(255, 176, 201, 0.76) 0 24%, transparent 27%),
+    radial-gradient(circle at 50% 50%, rgba(140, 235, 220, 0.72) 0 36%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(171, 200, 255, 0.8) 0 20%, rgba(240, 248, 255, 0.44) 32%, transparent 34%),
+    linear-gradient(145deg, rgba(255, 208, 182, 0.38) 0%, rgba(193, 218, 255, 0.34) 54%, rgba(219, 197, 255, 0.36) 100%);
+  animation: themeToggleWhiteSpotDrift 6.6s ease-in-out infinite;
+  border-color: rgba(255, 255, 255, 0.6);
+  opacity: 0.88;
+  filter: saturate(1.42) brightness(1.02);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.94),
+    inset 0 14px 18px rgba(255, 255, 255, 0.38),
+    inset 0 -14px 20px rgba(118, 132, 180, 0.4),
+    0 14px 34px rgba(74, 92, 142, 0.56),
+    0 0 34px rgba(174, 202, 255, 0.34);
+}
+
+#theme-toggle[data-theme="rainbow"]::before {
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 157, 177, 0) 0%,
+    rgba(255, 157, 177, 0.34) 18%,
+    rgba(255, 209, 157, 0.3) 34%,
+    rgba(157, 233, 217, 0.34) 50%,
+    rgba(156, 200, 255, 0.34) 66%,
+    rgba(215, 176, 255, 0.34) 82%,
+    rgba(255, 157, 177, 0) 100%
+  );
+  filter: blur(3.4px);
+  opacity: 0.54;
+  animation: themeTogglePlanetSpin 7.2s linear infinite;
+}
+
 #theme-toggle:hover {
-  transform: translateY(-2px);
+  transform: none;
   opacity: 0.9;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.62),
@@ -164,7 +242,19 @@ body > * {
 }
 
 #theme-toggle[data-theme="autumn"]:hover::before {
-  opacity: 0.92;
+  opacity: 0.88;
+  top: -24%;
+  left: -42%;
+  width: 44%;
+  height: 148%;
+  border-radius: 999px;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.72) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: none;
   animation: themeButtonShine 0.95s ease-out;
 }
 
@@ -192,6 +282,75 @@ body > * {
     0 4px 10px rgba(8, 6, 20, 0.22);
 }
 
+#theme-toggle.theme-toggle-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.84);
+}
+
+#theme-toggle.theme-toggle-force-reset {
+  transform: none !important;
+}
+
+#theme-toggle.theme-toggle-holding {
+  cursor: grabbing;
+  transition: transform 55ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 60ms linear, filter 60ms linear, opacity 60ms linear;
+  transform:
+    translateY(calc(1px + (7px * var(--theme-toggle-hold-progress))))
+    scaleX(calc(1.02 + (0.2 * var(--theme-toggle-hold-progress))))
+    scaleY(calc(0.96 - (0.28 * var(--theme-toggle-hold-progress))));
+  opacity: calc(0.86 + (0.1 * var(--theme-toggle-hold-progress)));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.56),
+    inset 0 10px 14px rgba(255, 255, 255, calc(0.12 + (0.08 * var(--theme-toggle-hold-progress)))),
+    inset 0 -12px 18px rgba(10, 8, 24, calc(0.26 + (0.24 * var(--theme-toggle-hold-progress)))),
+    0 4px 12px rgba(8, 6, 20, 0.2);
+  filter: saturate(calc(1 + (0.3 * var(--theme-toggle-hold-progress)))) brightness(calc(1 + (0.15 * var(--theme-toggle-hold-progress))));
+}
+
+#theme-toggle.theme-toggle-holding::before {
+  inset: -18%;
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+  opacity: calc(0.2 + (0.8 * var(--theme-toggle-hold-progress)));
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18) 0 38%, rgba(255, 255, 255, 0) 64%),
+    conic-gradient(
+      from -90deg,
+      rgba(255, 255, 255, 0.08) 0deg,
+      rgba(255, 255, 255, 0.08) calc(360deg * var(--theme-toggle-hold-progress)),
+      rgba(255, 255, 255, 0) calc(360deg * var(--theme-toggle-hold-progress)),
+      rgba(255, 255, 255, 0) 360deg
+    );
+  transform: rotate(calc(100deg * var(--theme-toggle-hold-progress)));
+  filter: blur(calc(2px - (1px * var(--theme-toggle-hold-progress))));
+}
+
+#theme-toggle.theme-toggle-holding::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 999px;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, calc(0.1 + (0.1 * var(--theme-toggle-hold-progress)))) 0%,
+      rgba(255, 255, 255, 0) 44%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(var(--theme-toggle-fill-rgb), calc(0.14 + (0.54 * var(--theme-toggle-hold-progress)))) 0%,
+      rgba(var(--theme-toggle-fill-rgb), calc(0.06 + (0.3 * var(--theme-toggle-hold-progress)))) calc(40% + (42% * var(--theme-toggle-hold-progress))),
+      rgba(var(--theme-toggle-fill-rgb), 0) calc(68% + (22% * var(--theme-toggle-hold-progress)))
+    );
+  transform-origin: 50% 100%;
+  transform: scaleY(calc(0.24 + (0.76 * var(--theme-toggle-hold-progress))));
+  opacity: calc(0.34 + (0.66 * var(--theme-toggle-hold-progress)));
+  mix-blend-mode: screen;
+}
+
 #theme-toggle.theme-toggle-burst {
   animation: themeToggleBurst 560ms cubic-bezier(0.2, 0.75, 0.2, 1);
 }
@@ -214,8 +373,11 @@ body > * {
 #theme-toggle-hint {
   position: fixed;
   top: 36px;
-  right: 78px;
-  z-index: 26;
+  right: 66px;
+  z-index: 3100;
+  width: max-content;
+  max-width: min(60vw, 260px);
+  contain: layout;
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.26);
@@ -224,6 +386,7 @@ body > * {
   font-size: 0.68rem;
   letter-spacing: 0.03em;
   white-space: nowrap;
+  overflow-wrap: break-word;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   pointer-events: none;
@@ -251,7 +414,7 @@ body.theme-hint-visible #theme-toggle-hint {
 }
 
 body.theme-hint-visible #theme-toggle {
-  animation: themeTogglePulse 1.8s ease-in-out infinite;
+  animation: themeTogglePulse 1.8s ease-in-out infinite, themeToggleWhiteSpotDrift 6.4s ease-in-out infinite;
 }
 
 @keyframes themeTogglePulse {
@@ -283,6 +446,38 @@ body.theme-hint-visible #theme-toggle {
   100% {
     transform: scale(1) rotate(360deg);
     filter: blur(3px);
+  }
+}
+
+@keyframes themeTogglePlanetSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes themeToggleWhiteSpotDrift {
+  0% {
+    --theme-toggle-spot-x: 26%;
+    --theme-toggle-spot-y: 24%;
+  }
+  25% {
+    --theme-toggle-spot-x: 27%;
+    --theme-toggle-spot-y: 24.5%;
+  }
+  50% {
+    --theme-toggle-spot-x: 27.5%;
+    --theme-toggle-spot-y: 25.6%;
+  }
+  75% {
+    --theme-toggle-spot-x: 25.2%;
+    --theme-toggle-spot-y: 25.1%;
+  }
+  100% {
+    --theme-toggle-spot-x: 26%;
+    --theme-toggle-spot-y: 24%;
   }
 }
 
@@ -519,6 +714,22 @@ footer a:hover {
     transition: none;
   }
 
+  #theme-toggle.theme-toggle-holding {
+    transform: translateY(4px) scaleX(1.08) scaleY(0.82);
+    filter: saturate(1.12) brightness(1.08);
+  }
+
+  #theme-toggle.theme-toggle-holding::before {
+    opacity: 0.9;
+    transform: none;
+    filter: none;
+  }
+
+  #theme-toggle.theme-toggle-holding::after {
+    transform: none;
+    opacity: 0.9;
+  }
+
   #theme-toggle.theme-toggle-burst {
     animation: none;
   }
@@ -540,6 +751,8 @@ footer a:hover {
     animation: none;
   }
 }
+
+
 
 
 

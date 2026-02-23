@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ES2020",
+    "outDir": "../js/",
+    "rootDir": "./"
+  },
+  "include": [
+    "autumntheme.ts",
+    "neontheme.ts",
+    "randomtheme.ts",
+    "dropdown.ts",
+    "footer.ts",
+    "legalmodal.ts"
+  ],
+  "exclude": []
+}
