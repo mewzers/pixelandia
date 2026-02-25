@@ -4,7 +4,6 @@ const privacyLink = document.getElementById('privacy-link') as HTMLElement | nul
 const privacyClose = document.getElementById('privacy-close') as HTMLElement | null;
 
 if (modal && privacyLink && privacyClose) {
-
   privacyLink.addEventListener('click', (e: Event): void => {
     e.preventDefault();
     document.body.classList.add('modal-open');

@@ -49,6 +49,11 @@ const themeToggle = document.getElementById('theme-toggle');
 const themeHint = document.getElementById('theme-toggle-hint');
 const themeMenuToggle = document.getElementById('theme-menu-toggle');
 const menuThemeHint = document.querySelector('.dropdown-theme-hint');
+const navbar = document.querySelector('.navbar');
+const navbarContactLink = document.getElementById('navbar-contact');
+const menuContactLink = document.getElementById('menu-contact');
+const NAVBAR_CONTACT_BREAKPOINT_PX = 830;
+
 let rainbowHoldTimer = null;
 let rainbowHoldTriggered = false;
 let rainbowHoldAnimationFrame = null;
@@ -66,6 +71,10 @@ let menuPreviewRestoreLabel = null;
 let suppressNextMenuThemeToggleClick = false;
 let themeHintLoadingInterval = null;
 let themeHintLoadingIndex = 0;
+let contactInMenu = false;
+
+
+
 
 const getStoredTheme = () => {
     try {
@@ -88,7 +97,26 @@ const saveTheme = (themeName) => {
         // Ignore storage errors
     }
 };
-
+const syncNavbarPrimaryLinks = () => {
+    if (!navbar)
+        return;
+    const setContactInMenu = (inMenu) => {
+        if (contactInMenu === inMenu)
+            return;
+        contactInMenu = inMenu;
+        navbar.classList.toggle('navbar-contact-in-menu', inMenu);
+        if (navbarContactLink) {
+            navbarContactLink.setAttribute('aria-hidden', inMenu ? 'true' : 'false');
+            navbarContactLink.tabIndex = inMenu ? -1 : 0;
+        }
+        if (menuContactLink) {
+            menuContactLink.style.display = inMenu ? 'block' : 'none';
+            menuContactLink.setAttribute('aria-hidden', inMenu ? 'false' : 'true');
+            menuContactLink.tabIndex = inMenu ? 0 : -1;
+        }
+    };
+    setContactInMenu(window.innerWidth < NAVBAR_CONTACT_BREAKPOINT_PX);
+};
 const hideThemeHint = () => {
     stopThemeHintLoading(false);
     document.body.classList.remove('theme-hint-visible');
@@ -285,6 +313,9 @@ const applyTheme = (themeName) => {
 let activeThemeName = getStoredTheme() ?? (Math.random() < 0.5 ? 'neon' : 'autumn');
 applyTheme(activeThemeName);
 saveTheme(activeThemeName);
+window.addEventListener('resize', syncNavbarPrimaryLinks);
+window.addEventListener('orientationchange', syncNavbarPrimaryLinks);
+window.requestAnimationFrame(syncNavbarPrimaryLinks);
 
 if (themeToggle) {
     themeToggle.addEventListener('contextmenu', (event) => {
@@ -295,7 +326,7 @@ if (themeToggle) {
             event.preventDefault();
     }, { passive: false });
     const HOLD_PROGRESS_PROPERTY = '--theme-toggle-hold-progress';
-    const navbar = document.querySelector('.navbar');
+    const THEME_TOGGLE_HIDE_BREAKPOINT = 675;
     const setHoldProgress = (progress) => {
         const clampedProgress = Math.min(1, Math.max(0, progress));
         themeToggle.style.setProperty(HOLD_PROGRESS_PROPERTY, clampedProgress.toString());
@@ -347,6 +378,9 @@ if (themeToggle) {
         rainbowHoldAnimationFrame = window.requestAnimationFrame(updateHoldVisual);
     };
     const clearRainbowHold = (forceReset = true) => {
+        const hadThemeToggleInteraction = rainbowHoldTimer !== null
+            || activeThemeTogglePointerId !== null
+            || themeToggle.classList.contains('theme-toggle-holding');
         if (rainbowHoldTimer !== null) {
             window.clearTimeout(rainbowHoldTimer);
             rainbowHoldTimer = null;
@@ -357,18 +391,12 @@ if (themeToggle) {
         else {
             stopHoldVisual(true);
         }
-        hideThemeHint();
+        if (hadThemeToggleInteraction) {
+            hideThemeHint();
+        }
     };
-    const rectanglesIntersect = (a, b) => (a.left < b.right &&
-        a.right > b.left &&
-        a.top < b.bottom &&
-        a.bottom > b.top);
     const syncThemeToggleDisabledState = () => {
-        if (!navbar)
-            return;
-        const toggleRect = themeToggle.getBoundingClientRect();
-        const navbarRect = navbar.getBoundingClientRect();
-        const isHidden = rectanglesIntersect(toggleRect, navbarRect);
+        const isHidden = window.innerWidth <= THEME_TOGGLE_HIDE_BREAKPOINT;
         if (isHidden) {
             clearRainbowHold();
             rainbowHoldTriggered = false;
@@ -462,7 +490,6 @@ if (themeToggle) {
     });
     window.addEventListener('resize', syncThemeToggleDisabledState);
     window.addEventListener('orientationchange', syncThemeToggleDisabledState);
-    window.addEventListener('scroll', syncThemeToggleDisabledState, { passive: true });
     window.requestAnimationFrame(syncThemeToggleDisabledState);
 }
 
@@ -628,6 +655,11 @@ if (themeMenuToggle) {
         hideThemeHint();
     });
 }
+
+
+
+
+
 
 
 

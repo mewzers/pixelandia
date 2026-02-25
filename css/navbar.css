@@ -1,4 +1,4 @@
-
+﻿
 /* ============================================================
    NAVBAR
    ============================================================ */
@@ -9,6 +9,7 @@
 }
 
 .navbar {
+  --navbar-gap: 20px;
   position: relative;
   isolation: isolate;
   z-index: 40;
@@ -21,8 +22,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  transition: background-color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  gap: var(--navbar-gap);
+  transition: background-color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, padding 0.28s ease, gap 0.28s ease;
   border-radius: 15px;
   padding: 10px 20px;
   margin: 20px auto 0;
@@ -84,9 +85,40 @@
   padding: 14px 16px;
   text-decoration: none;
   font-size: 30px;
-  transition: color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, font-size 0.28s ease, padding 0.28s ease;
   border-radius: 8px;
   opacity: 0.5;
+}
+
+#navbar-contact {
+  display: inline-block;
+  max-width: 280px;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: max-width 0.28s ease, opacity 0.2s ease, padding 0.28s ease, margin 0.28s ease;
+}
+
+.navbar.navbar-contact-in-menu #navbar-contact {
+  max-width: 0;
+  opacity: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  pointer-events: none;
+}
+
+.navbar.navbar-contact-in-menu .dropdown {
+  margin-left: calc(var(--navbar-gap) * -1);
+}
+
+.navbar.navbar-contact-in-menu {
+  /* Le retrécissement de la navbar est géré par responsive.css */
+}
+
+.navbar.navbar-contact-in-menu a {
+  /* Le retrécissement des liens est géré par responsive.css */
 }
 
 .navbar:hover a {
@@ -132,7 +164,7 @@ body[data-theme="rainbow"] .navbar a:hover {
   color: rgba(255, 120, 36, 0.98);
 }
 
-/* Wrapper des liens (prévu pour usage futur) */
+/* Wrapper des liens (prÃ©vu pour usage futur) */
 .nav-links {
   display: flex;
   align-items: center;

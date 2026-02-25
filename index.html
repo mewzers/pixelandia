@@ -32,12 +32,14 @@
          ============================================================ -->
     <div class="navbar">
       <a href="/">Accueil</a>
-      <a href="#about" data-page="about">À propos</a>
-      <a href="#contact" data-page="contact">Contact</a>
+      <a id="navbar-about" href="#about" data-page="about">À propos</a>
+      <a id="navbar-contact" href="#contact" data-page="contact">Contact</a>
       <div class="dropdown">
         <div class="dropdown-toggle"><a>Menu ▾</a></div>
         <div class="dropdown-menu">
           <a href="https://github.com/mewzers" target="_blank" rel="noopener noreferrer">Github</a>
+          <a id="menu-about" href="#about" data-page="about">À propos</a>
+          <a id="menu-contact" href="#contact" data-page="contact">Contact</a>
           <button id="theme-menu-toggle" type="button" class="dropdown-theme-toggle">Th&egrave;me : normal</button>
           <div class="dropdown-theme-hint">Clique ici pour changer le theme</div>
         </div>
@@ -48,8 +50,24 @@
          MAIN - Contenu principal
          ============================================================ -->
     <main>
-      <h1>Bienvenue sur Pixelandia</h1>
-      <div class="scroll-arrow">V</div>
+      <h1 class="hero-title"><span class="title-line">Bienvenue&nbsp;sur</span><span class="title-line">Pixelandia</span></h1>
+      <div class="scroll-arrow" aria-hidden="true">
+        <svg class="scroll-arrow-shape" viewBox="0 0 76 44" focusable="false" aria-hidden="true">
+          <defs>
+            <linearGradient id="arrow-rainbow-gradient" x1="0" y1="0" x2="76" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#ff9db1"></stop>
+              <stop offset="18%" stop-color="#ffd09d"></stop>
+              <stop offset="36%" stop-color="#fff1a6"></stop>
+              <stop offset="54%" stop-color="#9de9d9"></stop>
+              <stop offset="72%" stop-color="#9cc8ff"></stop>
+              <stop offset="88%" stop-color="#d7b0ff"></stop>
+              <stop offset="100%" stop-color="#ff9db1"></stop>
+              <animateTransform attributeName="gradientTransform" type="translate" values="-76 0;76 0;-76 0" dur="2.8s" repeatCount="indefinite"></animateTransform>
+            </linearGradient>
+          </defs>
+          <path d="M18 10 L38 34 L58 10"></path>
+        </svg>
+      </div>
     </main>
 
     <!-- ============================================================
@@ -131,6 +149,7 @@
          SCRIPTS JS (compilés depuis TS)
          ============================================================ -->
     <script src="scripts/js/dropdown.js"></script>
+    <script src="scripts/js/arrow.js"></script>
     <script src="scripts/js/footer.js"></script>
     <script src="scripts/js/legalmodal.js"></script>
 
@@ -139,4 +158,3 @@
 
   </body>
 </html>
-
