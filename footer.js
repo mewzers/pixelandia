@@ -1,1 +1,0 @@
-const y=document.getElementById("year");y&&(y.textContent=(new Date).getFullYear().toString());
