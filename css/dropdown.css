@@ -6,6 +6,8 @@
   z-index: 45;
   margin-left: auto;
   font-size: 30px;
+    display: flex;
+  align-items: center;
 }
 
 .dropdown a {

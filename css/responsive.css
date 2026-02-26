@@ -11,7 +11,6 @@
 }
 
 @media (max-width: 600px) {
-  h1 { font-size: 3rem; letter-spacing: 0.1em; }
   #theme-toggle { width: 40px; height: 40px; top: 24px; right: 10px; font-size: 1.25rem; }
   #theme-toggle-hint { top: 24px; right: 62px; font-size: 0.58rem; padding: 4px 7px; }
   .navbar {
@@ -23,7 +22,7 @@
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 580px) {
   .navbar {
     --navbar-gap: clamp(6px, 2.2vw, 12px);
     gap: var(--navbar-gap);
@@ -31,7 +30,7 @@
   }
 
   .navbar a {
-    font-size: clamp(16px, 4.4vw, 30px);
+    font-size: clamp(26px, 4.9vw, 30px);
     padding: clamp(8px, 2vw, 14px) clamp(8px, 2.6vw, 16px);
   }
 }
@@ -41,3 +40,71 @@
   .nav-toggle { font-size: 26px; padding: 10px; }
   .nav-links a { font-size: 18px; padding: 12px 14px; }
 }
+
+
+@media (max-width: 750px) {
+  .hero-title { font-size: 3.6rem; }
+}
+
+@media (max-width: 674px) {
+  .hero-title { font-size: 3.2rem; }
+
+}
+
+@media (max-width: 580px) {
+  .hero-title { font-size: 3rem; }
+}
+
+@media (max-width: 520px) {
+  .hero-title { font-size: 2.8rem; }
+}
+
+
+@media (max-width: 490px) {
+  .hero-title { font-size: 2.6rem; }
+}
+
+@media (max-width: 460px) {
+  .hero-title { font-size: 2.3rem; }
+}
+
+@media (max-width: 420px) {
+  .hero-title { font-size: 2.1rem; }
+}
+
+@media (max-width: 750px) {
+  .scroll-arrow {   
+  width: 126px;
+  height: 102px; 
+}
+}
+
+@media (max-width: 674px) {
+  .scroll-arrow {   
+  width: 106px;
+  height: 92px;
+}
+}
+
+@media (max-width: 480px) {
+  .scroll-arrow {   
+  width: 96px;
+  height: 82px;
+}
+}
+
+@media (max-width: 750px) {
+  footer {
+    flex-direction: column;
+    gap: 4px;
+    white-space: normal;
+    text-align: center;
+    padding: 20px 30px;
+  }
+
+  .footer-separator {
+    display: none;
+  }
+}
+
+    

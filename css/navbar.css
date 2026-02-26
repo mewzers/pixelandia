@@ -88,6 +88,9 @@
   transition: color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, font-size 0.28s ease, padding 0.28s ease;
   border-radius: 8px;
   opacity: 0.5;
+  flex: 1 1 auto;      /* autorise le shrink */
+  min-width: 0;        /* crucial en flexbox */
+  white-space: nowrap; /* évite le passage à la ligne */
 }
 
 #navbar-contact {
@@ -169,7 +172,7 @@ body[data-theme="rainbow"] .navbar a:hover {
   display: flex;
   align-items: center;
   gap: 20px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
 }
 
